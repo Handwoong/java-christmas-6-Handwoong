@@ -1,6 +1,7 @@
 package christmas.domain.restaurant;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 
 import java.util.List;
@@ -10,6 +11,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import christmas.exception.ExceptionMessage;
 
 class RestaurantTest {
     private static Stream<Arguments> generateMenus() {
@@ -50,5 +54,33 @@ class RestaurantTest {
                 .contains(
                         tuple(name, price, category)
                 );
+    }
+
+    @DisplayName("메뉴 이름으로 메뉴를 찾는다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"티본스테이크", "바비큐립", "해산물파스타"})
+    void findMenuByName(final String name) {
+        // given
+        final Restaurant restaurant = new Restaurant();
+
+        // when
+        final Menu findMenu = restaurant.findMenuByName(name);
+
+        // then
+        assertThat(findMenu).hasFieldOrPropertyWithValue("name", name);
+    }
+
+    @DisplayName("메뉴 이름으로 메뉴를 찾지 못하면 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"투움바파스타", "소고기스테이크", "토마토파스타"})
+    void findMenuByNameException(final String name) {
+        // given
+        final Restaurant restaurant = new Restaurant();
+
+        // when
+        // then
+        assertThatThrownBy(() -> restaurant.findMenuByName(name))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ExceptionMessage.NOT_FOUND_MENU.format(name));
     }
 }
