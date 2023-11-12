@@ -10,4 +10,8 @@ public class Menu {
         this.price = price;
         this.category = category;
     }
+
+    public int price(final int quantity) {
+        return price * quantity;
+    }
 }
