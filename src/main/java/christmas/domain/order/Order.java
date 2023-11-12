@@ -24,6 +24,16 @@ public class Order {
         return new Order(orderMenus);
     }
 
+    public boolean isTotalPriceGreaterThan(final int price) {
+        return totalPrice() > price;
+    }
+
+    public int totalPrice() {
+        return orderMenus.stream()
+                .map(OrderMenu::totalPrice)
+                .reduce(0, Integer::sum);
+    }
+
     public List<OrderMenu> getOrderMenus() {
         return List.copyOf(orderMenus);
     }
