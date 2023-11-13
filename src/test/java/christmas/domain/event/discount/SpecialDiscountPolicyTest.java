@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.domain.event.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,11 +11,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import christmas.domain.event.calender.ChristmasEventCalender;
+import christmas.domain.event.calender.EventCalender;
 import christmas.domain.order.Order;
 import christmas.domain.restaurant.Restaurant;
 import christmas.dto.OrderRequest;
 
-class WeekDayDiscountPolicyTest {
+class SpecialDiscountPolicyTest {
     private static EventCalender calender;
 
     @BeforeAll
@@ -26,39 +28,42 @@ class WeekDayDiscountPolicyTest {
     private static Stream<Arguments> generateData() {
         return Stream.of(
                 Arguments.of(
-                        16,
+                        3,
                         calender,
                         List.of(new OrderRequest("아이스크림", 1)),
                         0
                 ),
                 Arguments.of(
-                        18,
+                        10,
                         calender,
                         List.of(new OrderRequest("아이스크림", 2)),
-                        4_046
+                        1_000
+                ),
+                Arguments.of(
+                        25,
+                        calender,
+                        List.of(new OrderRequest("아이스크림", 2)),
+                        1_000
                 ),
                 Arguments.of(
                         29,
                         calender,
-                        List.of(new OrderRequest("아이스크림", 5)),
+                        List.of(new OrderRequest("아이스크림", 2)),
                         0
                 ),
                 Arguments.of(
-                        31,
+                        30,
                         calender,
-                        List.of(
-                                new OrderRequest("아이스크림", 2),
-                                new OrderRequest("초코케이크", 2)
-                        ),
-                        8_092
+                        List.of(new OrderRequest("티본스테이크", 2)),
+                        0
                 )
         );
     }
 
-    @DisplayName("평일 할인 금액을 계산한다.")
+    @DisplayName("특별 할인 금액을 계산한다.")
     @ParameterizedTest
     @MethodSource("generateData")
-    void weekDayDiscount(final int date,
+    void specialDiscount(final int date,
                          final EventCalender calender,
                          final List<OrderRequest> orderRequests,
                          final int discountAmount
@@ -66,10 +71,10 @@ class WeekDayDiscountPolicyTest {
         // given
         final Restaurant restaurant = new Restaurant();
         final Order order = Order.create(orderRequests, restaurant);
-        final WeekDayDiscountPolicy weekDayDiscountPolicy = new WeekDayDiscountPolicy();
+        final SpecialDiscountPolicy specialDiscountPolicy = new SpecialDiscountPolicy();
 
         // when
-        final int result = weekDayDiscountPolicy.discount(date, calender, order);
+        final int result = specialDiscountPolicy.discount(date, calender, order);
 
         // then
         assertThat(result).isEqualTo(discountAmount);

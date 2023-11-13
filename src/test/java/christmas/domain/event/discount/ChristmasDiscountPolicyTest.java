@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.domain.event.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,6 +11,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import christmas.domain.event.calender.ChristmasEventCalender;
+import christmas.domain.event.calender.EventCalender;
 import christmas.domain.order.Order;
 import christmas.domain.restaurant.Restaurant;
 import christmas.dto.OrderRequest;

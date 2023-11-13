@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.domain.event.calender;
 
 public interface EventCalender {
     boolean isValidDate(final int date);

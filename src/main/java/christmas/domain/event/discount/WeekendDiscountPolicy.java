@@ -1,18 +1,19 @@
-package christmas.domain.discount;
+package christmas.domain.event.discount;
 
-import static christmas.domain.discount.ChristmasEventCalender.SUNDAY;
-import static christmas.domain.discount.ChristmasEventCalender.THURSDAY;
+import static christmas.domain.event.calender.ChristmasEventCalender.FRIDAY;
+import static christmas.domain.event.calender.ChristmasEventCalender.SATURDAY;
 
+import christmas.domain.event.calender.EventCalender;
 import christmas.domain.order.Order;
 
-public class WeekDayDiscountPolicy implements DiscountPolicy {
-    private static final String DISCOUNT_CATEGORY = "디저트";
+public class WeekendDiscountPolicy implements DiscountPolicy {
+    private static final String DISCOUNT_CATEGORY = "메인";
     private static final int DISCOUNT_AMOUNT = 2_023;
 
     @Override
     public boolean support(final int date, final EventCalender calender, final Order order) {
         return (order.isTotalPriceGreaterThanOrEqual(MIN_ORDER_PRICE)) &&
-                (calender.isEventDayOfWeek(date, SUNDAY, THURSDAY));
+                (calender.isEventDayOfWeek(date, FRIDAY, SATURDAY));
     }
 
     @Override

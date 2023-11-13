@@ -1,7 +1,8 @@
-package christmas.domain.discount;
+package christmas.domain.event.discount;
 
-import static christmas.domain.discount.ChristmasEventCalender.START_DAY;
+import static christmas.domain.event.calender.ChristmasEventCalender.START_DAY;
 
+import christmas.domain.event.calender.EventCalender;
 import christmas.domain.order.Order;
 
 public class ChristmasDiscountPolicy implements DiscountPolicy {
