@@ -11,8 +11,8 @@ public class WeekDayDiscountPolicy implements DiscountPolicy {
 
     @Override
     public boolean support(final int date, final EventCalender calender, final Order order) {
-        return (order.isTotalPriceGreaterThanOrEqual(MIN_ORDER_PRICE)) && (calender.isEventDayOfWeek(date, SUNDAY,
-                THURSDAY));
+        return (order.isTotalPriceGreaterThanOrEqual(MIN_ORDER_PRICE)) &&
+                (calender.isEventDayOfWeek(date, SUNDAY, THURSDAY));
     }
 
     @Override
