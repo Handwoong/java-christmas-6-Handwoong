@@ -9,4 +9,8 @@ public record DiscountResponse(
     public static DiscountResponse of(final ChristmasEventType type, final int amount) {
         return new DiscountResponse(type.getType(), amount);
     }
+
+    public boolean isNotNoneType() {
+        return !type.equals(ChristmasEventType.NONE.getType());
+    }
 }
