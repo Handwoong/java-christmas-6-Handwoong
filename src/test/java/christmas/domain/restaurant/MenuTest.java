@@ -49,4 +49,32 @@ class MenuTest {
         // then
         assertThat(result).isFalse();
     }
+
+    @DisplayName("전달받은 카테고리 이름과 메뉴의 카테고리 이름이 같다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"애피타이저", "메인", "디저트", "음료"})
+    void matchCategoryTrue(final String category) {
+        // given
+        final Menu menu = new Menu("토마토파스타", 10_000, category);
+
+        // when
+        final boolean result = menu.matchCategory(category);
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("전달받은 카테고리 이름과 메뉴의 카테고리 이름이 다르다.")
+    @ParameterizedTest
+    @CsvSource(value = {"애피타이저:메인", "메인:디저트", "디저트:음료"}, delimiter = ':')
+    void matchCategoryFalse(final String menuCategory, final String targetCategory) {
+        // given
+        final Menu menu = new Menu("토마토파스타", 10_000, menuCategory);
+
+        // when
+        final boolean result = menu.matchCategory(targetCategory);
+
+        // then
+        assertThat(result).isFalse();
+    }
 }

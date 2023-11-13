@@ -90,9 +90,27 @@ class OrderTest {
         final Order order = Order.create(orderRequests, restaurant);
 
         // when
-        final boolean result = order.isTotalPriceGreaterThan(minPrice);
+        final boolean result = order.isTotalPriceGreaterThanOrEqual(minPrice);
 
         // then
         assertThat(result).isEqualTo(totalPrice > minPrice);
+    }
+
+    @Test
+    @DisplayName("주문한 메뉴들의 일치하는 카테고리의 메뉴 수량을 계산한다.")
+    void calculateCategoryMenuQuantity() {
+        // given
+        final Restaurant restaurant = new Restaurant();
+        final List<OrderRequest> orderRequests = List.of(
+                new OrderRequest("티본스테이크", 3),
+                new OrderRequest("바비큐립", 2)
+        );
+        final Order order = Order.create(orderRequests, restaurant);
+
+        // when
+        final int result = order.calculateCategoryMenuQuantity("메인");
+
+        // then
+        assertThat(result).isEqualTo(5);
     }
 }
