@@ -10,15 +10,15 @@ public class ChristmasDiscountPolicy implements DiscountPolicy {
 
     @Override
     public boolean support(final int date, final EventCalender calender, final Order order) {
-        return (order.isTotalPriceGreaterThan(MIN_ORDER_PRICE)) && calender.isValidDate(date);
+        return (order.isTotalPriceGreaterThanOrEqual(MIN_ORDER_PRICE)) && calender.isValidDate(date);
     }
 
     @Override
     public int discount(final int date, final EventCalender calender, final Order order) {
-        if (!support(date, calender, order)) {
-            return 0;
+        if (support(date, calender, order)) {
+            return calculateDiscountAmount(date);
         }
-        return calculateDiscountAmount(date);
+        return 0;
     }
 
     private int calculateDiscountAmount(final int date) {

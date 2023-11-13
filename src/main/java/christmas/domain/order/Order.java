@@ -24,13 +24,19 @@ public class Order {
         return new Order(orderMenus);
     }
 
-    public boolean isTotalPriceGreaterThan(final int price) {
-        return totalPrice() > price;
+    public boolean isTotalPriceGreaterThanOrEqual(final int price) {
+        return totalPrice() >= price;
     }
 
     public int totalPrice() {
         return orderMenus.stream()
                 .map(OrderMenu::totalPrice)
+                .reduce(0, Integer::sum);
+    }
+
+    public int calculateCategoryMenuQuantity(final String category) {
+        return orderMenus.stream()
+                .map(orderMenu -> orderMenu.categoryMenuQuantity(category))
                 .reduce(0, Integer::sum);
     }
 

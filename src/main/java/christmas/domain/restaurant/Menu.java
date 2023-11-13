@@ -15,6 +15,10 @@ public class Menu {
         return this.name.equals(name);
     }
 
+    public boolean matchCategory(final String category) {
+        return this.category.equals(category);
+    }
+
     public int price(final int quantity) {
         return price * quantity;
     }
