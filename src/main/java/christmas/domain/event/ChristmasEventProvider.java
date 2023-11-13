@@ -18,9 +18,10 @@ import christmas.dto.BenefitResponse;
 import christmas.dto.DiscountResponse;
 
 public class ChristmasEventProvider implements EventProvider {
+    private final EventCalender calender;
     private final List<DiscountPolicy> discountPolicies;
 
-    public ChristmasEventProvider() {
+    public ChristmasEventProvider(final EventCalender calender) {
         this.discountPolicies = List.of(
                 new ChristmasDiscountPolicy(),
                 new WeekDayDiscountPolicy(),
@@ -28,10 +29,11 @@ public class ChristmasEventProvider implements EventProvider {
                 new SpecialDiscountPolicy(),
                 new PresentationDiscountPolicy()
         );
+        this.calender = calender;
     }
 
     @Override
-    public List<DiscountResponse> discount(final int date, final EventCalender calender, final Order order) {
+    public List<DiscountResponse> discount(final int date, final Order order) {
         final List<DiscountResponse> discountResponses = new ArrayList<>();
         for (final DiscountPolicy discountPolicy : discountPolicies) {
             final DiscountResponse discountResponse = discountPolicy.discount(date, calender, order);
