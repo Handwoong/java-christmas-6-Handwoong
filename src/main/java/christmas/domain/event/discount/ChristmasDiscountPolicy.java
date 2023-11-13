@@ -2,8 +2,10 @@ package christmas.domain.event.discount;
 
 import static christmas.domain.event.calender.ChristmasEventCalender.START_DAY;
 
+import christmas.domain.event.ChristmasEventType;
 import christmas.domain.event.calender.EventCalender;
 import christmas.domain.order.Order;
+import christmas.dto.DiscountResponse;
 
 public class ChristmasDiscountPolicy implements DiscountPolicy {
     private static final int MIN_DISCOUNT_AMOUNT = 1000;
@@ -15,11 +17,12 @@ public class ChristmasDiscountPolicy implements DiscountPolicy {
     }
 
     @Override
-    public int discount(final int date, final EventCalender calender, final Order order) {
+    public DiscountResponse discount(final int date, final EventCalender calender, final Order order) {
         if (support(date, calender, order)) {
-            return calculateDiscountAmount(date);
+            final int discountAmount = calculateDiscountAmount(date);
+            return DiscountResponse.of(ChristmasEventType.D_DAY, discountAmount);
         }
-        return 0;
+        return DiscountResponse.of(ChristmasEventType.NONE, 0);
     }
 
     private int calculateDiscountAmount(final int date) {

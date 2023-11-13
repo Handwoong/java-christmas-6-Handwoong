@@ -3,8 +3,10 @@ package christmas.domain.event.discount;
 import static christmas.domain.event.calender.ChristmasEventCalender.SUNDAY;
 import static christmas.domain.event.calender.ChristmasEventCalender.THURSDAY;
 
+import christmas.domain.event.ChristmasEventType;
 import christmas.domain.event.calender.EventCalender;
 import christmas.domain.order.Order;
+import christmas.dto.DiscountResponse;
 
 public class WeekDayDiscountPolicy implements DiscountPolicy {
     private static final String DISCOUNT_CATEGORY = "디저트";
@@ -17,11 +19,11 @@ public class WeekDayDiscountPolicy implements DiscountPolicy {
     }
 
     @Override
-    public int discount(final int date, final EventCalender calender, final Order order) {
+    public DiscountResponse discount(final int date, final EventCalender calender, final Order order) {
         if (support(date, calender, order)) {
-            return calculateDiscountAmount(order);
+            return DiscountResponse.of(ChristmasEventType.DAY_OF_WEEK, calculateDiscountAmount(order));
         }
-        return 0;
+        return DiscountResponse.of(ChristmasEventType.NONE, 0);
     }
 
     private int calculateDiscountAmount(final Order order) {

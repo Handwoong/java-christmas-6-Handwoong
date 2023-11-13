@@ -1,7 +1,9 @@
 package christmas.domain.event.discount;
 
+import christmas.domain.event.ChristmasEventType;
 import christmas.domain.event.calender.EventCalender;
 import christmas.domain.order.Order;
+import christmas.dto.DiscountResponse;
 
 public class PresentationDiscountPolicy implements DiscountPolicy {
     public static final String PRESENTATION_MENU_NAME = "샴페인";
@@ -14,10 +16,10 @@ public class PresentationDiscountPolicy implements DiscountPolicy {
     }
 
     @Override
-    public int discount(final int date, final EventCalender calender, final Order order) {
+    public DiscountResponse discount(final int date, final EventCalender calender, final Order order) {
         if (support(date, calender, order)) {
-            return PRESENTATION_MENU_PRICE;
+            return DiscountResponse.of(ChristmasEventType.PRESENTATION, PRESENTATION_MENU_PRICE);
         }
-        return 0;
+        return DiscountResponse.of(ChristmasEventType.NONE, 0);
     }
 }

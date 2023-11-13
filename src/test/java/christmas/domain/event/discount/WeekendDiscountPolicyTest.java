@@ -15,6 +15,7 @@ import christmas.domain.event.calender.ChristmasEventCalender;
 import christmas.domain.event.calender.EventCalender;
 import christmas.domain.order.Order;
 import christmas.domain.restaurant.Restaurant;
+import christmas.dto.DiscountResponse;
 import christmas.dto.OrderRequest;
 
 class WeekendDiscountPolicyTest {
@@ -86,9 +87,9 @@ class WeekendDiscountPolicyTest {
         final WeekendDiscountPolicy weekendDiscountPolicy = new WeekendDiscountPolicy();
 
         // when
-        final int result = weekendDiscountPolicy.discount(date, calender, order);
+        final DiscountResponse result = weekendDiscountPolicy.discount(date, calender, order);
 
         // then
-        assertThat(result).isEqualTo(discountAmount);
+        assertThat(result.amount()).isEqualTo(discountAmount);
     }
 }
