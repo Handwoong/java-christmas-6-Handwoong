@@ -6,7 +6,6 @@ import christmas.domain.event.EventProvider;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderDiscount;
 import christmas.domain.restaurant.Restaurant;
-import christmas.dto.DiscountResponse;
 import christmas.dto.OrderRequest;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -29,15 +28,25 @@ public class OrderController {
     }
 
     public void run() {
-        final int date = inputView.readVisitDate();
-        final List<OrderRequest> orderRequests = inputView.readOrderMenu();
+        final int date = visitDate();
+        final Order order = createOrder(date);
+        discountResult(date, order);
+    }
+
+    private int visitDate() {
+        return inputView.readVisitDate();
+    }
+
+    private Order createOrder(final int date) {
+        final List<OrderRequest> orderRequests = inputView.readOrderMenu(restaurant);
         final Order order = Order.create(orderRequests, restaurant);
         outputView.printNotice(date);
         outputView.printOrderMenu(orderRequests);
+        return order;
+    }
 
+    private void discountResult(final int date, final Order order) {
         final OrderDiscount orderDiscount = new OrderDiscount(date, order, eventProvider);
-        final int totalDiscount = orderDiscount.totalDiscount();
-        final List<DiscountResponse> discountResponses = eventProvider.discount(date, order);
         outputView.printResult(order, orderDiscount);
     }
 }
