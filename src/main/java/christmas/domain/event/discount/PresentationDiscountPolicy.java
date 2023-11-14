@@ -7,7 +7,7 @@ import christmas.dto.DiscountResponse;
 
 public class PresentationDiscountPolicy implements DiscountPolicy {
     public static final String PRESENTATION_MENU_NAME = "샴페인";
-    private static final int PRESENTATION_MENU_PRICE = 25_000;
+    public static final int PRESENTATION_MENU_PRICE = 25_000;
     private static final int EVENT_ORDER_PRICE = 120_000;
 
     @Override
