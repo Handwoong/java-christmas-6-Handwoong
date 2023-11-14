@@ -1,7 +1,8 @@
 package christmas.exception;
 
 public enum ExceptionMessage {
-    NOT_FOUND_MENU("메뉴 %s를 찾을 수 없습니다.");
+    IN_VALID_ORDER("유효하지 않은 주문입니다. 다시 입력해 주세요."),
+    IN_VALID_DATE("유효하지 않은 날짜입니다. 다시 입력해 주세요.");
 
     public static final String BASE_MESSAGE = "[ERROR] %s";
     private final String message;
