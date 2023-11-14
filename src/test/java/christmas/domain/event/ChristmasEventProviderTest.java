@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import christmas.domain.event.calender.ChristmasEventCalender;
 import christmas.dto.BenefitResponse;
 
 class ChristmasEventProviderTest {
@@ -14,7 +15,7 @@ class ChristmasEventProviderTest {
     @CsvSource(value = {"0:없음", "5000:별", "10000:트리", "20000:산타"}, delimiter = ':')
     void issuedBadgeByTotalBenefitAmount(final int amount, final String badge) {
         // given
-        final ChristmasEventProvider provider = new ChristmasEventProvider();
+        final ChristmasEventProvider provider = new ChristmasEventProvider(new ChristmasEventCalender());
 
         // when
         final BenefitResponse result = provider.benefit(amount);
