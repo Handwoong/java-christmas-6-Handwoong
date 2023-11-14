@@ -1,6 +1,6 @@
 package christmas.domain.restaurant;
 
-import static christmas.exception.ExceptionMessage.NOT_FOUND_MENU;
+import static christmas.exception.ExceptionMessage.IN_VALID_ORDER;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class Restaurant {
         return menus.stream()
                 .filter(menu -> menu.matchName(name))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_MENU.format(name)));
+                .orElseThrow(() -> new IllegalArgumentException(IN_VALID_ORDER.format(name)));
     }
 
     public List<Menu> getMenus() {

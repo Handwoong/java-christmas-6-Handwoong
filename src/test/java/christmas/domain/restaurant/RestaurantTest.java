@@ -81,6 +81,6 @@ class RestaurantTest {
         // then
         assertThatThrownBy(() -> restaurant.findMenuByName(name))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(ExceptionMessage.NOT_FOUND_MENU.format(name));
+                .hasMessage(ExceptionMessage.IN_VALID_ORDER.format(name));
     }
 }
