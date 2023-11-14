@@ -39,8 +39,4 @@ public class Order {
                 .map(orderMenu -> orderMenu.categoryMenuQuantity(category))
                 .reduce(0, Integer::sum);
     }
-
-    public List<OrderMenu> getOrderMenus() {
-        return List.copyOf(orderMenus);
-    }
 }
