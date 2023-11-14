@@ -1,7 +1,12 @@
 package christmas;
 
+import christmas.config.ApplicationContainer;
+import christmas.controller.OrderController;
+
 public class Application {
-    public static void main(String[] args) {
-        // TODO: 프로그램 구현
+    public static void main(final String[] args) {
+        final ApplicationContainer container = new ApplicationContainer();
+        final OrderController orderController = container.getOrderController();
+        orderController.run();
     }
 }
