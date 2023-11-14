@@ -30,7 +30,7 @@ public class OrderDiscount {
                 .filter(response -> response.event() == ChristmasEventType.PRESENTATION)
                 .findAny()
                 .ifPresentOrElse(
-                        response -> sb.append(response.item().getItem()),
+                        response -> sb.append(response.item().getItem()).append(" 1개"),
                         () -> sb.append(PresentationItem.NONE.getItem())
                 );
         return sb.toString();
