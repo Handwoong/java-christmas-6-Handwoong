@@ -20,10 +20,12 @@ public class ChristmasEventCalender implements EventCalender {
         this.calendar = cal;
     }
 
+    @Override
     public boolean isValidDate(final int date) {
         return date <= CHRISTMAS_DAY;
     }
 
+    @Override
     public boolean isEventDayOfWeek(final int date, final int start, final int end) {
         final int dayOfWeek = getDayOfWeek(date);
         return (start <= dayOfWeek) && (dayOfWeek <= end);
