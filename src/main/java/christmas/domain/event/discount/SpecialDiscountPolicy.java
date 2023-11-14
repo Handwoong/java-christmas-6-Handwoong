@@ -24,8 +24,8 @@ public class SpecialDiscountPolicy implements DiscountPolicy {
     @Override
     public DiscountResponse discount(final int date, final EventCalender calender, final Order order) {
         if (support(date, calender, order)) {
-            return DiscountResponse.of(ChristmasEventType.SPECIAL, DISCOUNT_AMOUNT);
+            return DiscountResponse.of(ChristmasEventType.SPECIAL, DISCOUNT_AMOUNT, PresentationItem.NONE);
         }
-        return DiscountResponse.of(ChristmasEventType.NONE, 0);
+        return DiscountResponse.of(ChristmasEventType.NONE, 0, PresentationItem.NONE);
     }
 }

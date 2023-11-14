@@ -21,9 +21,13 @@ public class WeekDayDiscountPolicy implements DiscountPolicy {
     @Override
     public DiscountResponse discount(final int date, final EventCalender calender, final Order order) {
         if (support(date, calender, order)) {
-            return DiscountResponse.of(ChristmasEventType.DAY_OF_WEEK, calculateDiscountAmount(order));
+            return DiscountResponse.of(
+                    ChristmasEventType.DAY_OF_WEEK,
+                    calculateDiscountAmount(order),
+                    PresentationItem.NONE
+            );
         }
-        return DiscountResponse.of(ChristmasEventType.NONE, 0);
+        return DiscountResponse.of(ChristmasEventType.NONE, 0, PresentationItem.NONE);
     }
 
     private int calculateDiscountAmount(final Order order) {

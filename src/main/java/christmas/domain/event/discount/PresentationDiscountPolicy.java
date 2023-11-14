@@ -6,7 +6,6 @@ import christmas.domain.order.Order;
 import christmas.dto.DiscountResponse;
 
 public class PresentationDiscountPolicy implements DiscountPolicy {
-    public static final String PRESENTATION_MENU_NAME = "샴페인";
     public static final int PRESENTATION_MENU_PRICE = 25_000;
     private static final int EVENT_ORDER_PRICE = 120_000;
 
@@ -18,8 +17,12 @@ public class PresentationDiscountPolicy implements DiscountPolicy {
     @Override
     public DiscountResponse discount(final int date, final EventCalender calender, final Order order) {
         if (support(date, calender, order)) {
-            return DiscountResponse.of(ChristmasEventType.PRESENTATION, PRESENTATION_MENU_PRICE);
+            return DiscountResponse.of(
+                    ChristmasEventType.PRESENTATION,
+                    PRESENTATION_MENU_PRICE,
+                    PresentationItem.CHAMPAGNE
+            );
         }
-        return DiscountResponse.of(ChristmasEventType.NONE, 0);
+        return DiscountResponse.of(ChristmasEventType.NONE, 0, PresentationItem.NONE);
     }
 }

@@ -78,7 +78,7 @@ public class OutputView {
         final List<DiscountResponse> discountResponses = orderDiscount.getDiscountResponses();
         for (final DiscountResponse discountResponse : discountResponses) {
             final String formatAmount = formatter.format(discountResponse.amount());
-            System.out.printf(DISCOUNT_FORMAT, discountResponse.type(), formatAmount);
+            System.out.printf(DISCOUNT_FORMAT, discountResponse.event().getType(), formatAmount);
             nextLine(1);
         }
     }

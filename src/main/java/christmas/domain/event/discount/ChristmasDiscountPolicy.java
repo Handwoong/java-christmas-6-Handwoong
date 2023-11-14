@@ -20,9 +20,9 @@ public class ChristmasDiscountPolicy implements DiscountPolicy {
     public DiscountResponse discount(final int date, final EventCalender calender, final Order order) {
         if (support(date, calender, order)) {
             final int discountAmount = calculateDiscountAmount(date);
-            return DiscountResponse.of(ChristmasEventType.D_DAY, discountAmount);
+            return DiscountResponse.of(ChristmasEventType.D_DAY, discountAmount, PresentationItem.NONE);
         }
-        return DiscountResponse.of(ChristmasEventType.NONE, 0);
+        return DiscountResponse.of(ChristmasEventType.NONE, 0, PresentationItem.NONE);
     }
 
     private int calculateDiscountAmount(final int date) {

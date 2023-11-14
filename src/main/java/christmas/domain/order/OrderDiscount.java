@@ -5,6 +5,7 @@ import java.util.List;
 import christmas.domain.event.ChristmasEventType;
 import christmas.domain.event.EventProvider;
 import christmas.domain.event.discount.PresentationDiscountPolicy;
+import christmas.domain.event.discount.PresentationItem;
 import christmas.dto.BenefitResponse;
 import christmas.dto.DiscountResponse;
 
@@ -24,10 +25,15 @@ public class OrderDiscount {
     }
 
     public String presentation() {
-        if (containsPresentation()) {
-            return PresentationDiscountPolicy.PRESENTATION_MENU_NAME + " 1개";
-        }
-        return "없음";
+        final StringBuilder sb = new StringBuilder();
+        discountResponses.stream()
+                .filter(response -> response.event() == ChristmasEventType.PRESENTATION)
+                .findAny()
+                .ifPresentOrElse(
+                        response -> sb.append(response.item().getItem()),
+                        () -> sb.append(PresentationItem.NONE.getItem())
+                );
+        return sb.toString();
     }
 
     public int paymentAmount(final Order order) {
@@ -39,7 +45,7 @@ public class OrderDiscount {
 
     private boolean containsPresentation() {
         return discountResponses.stream()
-                .anyMatch(response -> response.type().equals(ChristmasEventType.PRESENTATION.getType()));
+                .anyMatch(response -> response.event() == ChristmasEventType.PRESENTATION);
     }
 
     public BenefitResponse benefit() {
